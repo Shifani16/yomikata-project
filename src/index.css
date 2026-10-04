@@ -8,13 +8,15 @@
 @font-face {
   font-family: 'Libertinus';
   src: url('./assets/fonts/LibertinusSans-Regular.ttf') format('truetype');
+  font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Libertinus';
   src: url('./assets/fonts/LibertinusSans-Bold.ttf') format('truetype');
-  font-style: bold;
+  font-weight: bold;
+  font-style: normal;
 }
 
 @theme {
@@ -25,6 +27,8 @@
   --color-dark-light-bg: #404040;
   --color-mid-gray: #B3B3B3;
   
+  --font-zhongsong: 'STZhongsong', sans-serif;
+  --font-libertinus: 'Libertinus', sans-serif;
 }
 
 /* :root {

@@ -11,13 +11,16 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
+    "fflate": "^0.8.3",
     "kuroshiro": "^1.2.0",
     "kuroshiro-analyzer-kuromoji": "^1.1.0",
+    "path-browserify": "^1.0.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.4",
     "remixicon": "^4.9.1",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "zlibjs": "^0.3.1"
   },
   "devDependencies": {
     "@types/node": "^24.13.3",

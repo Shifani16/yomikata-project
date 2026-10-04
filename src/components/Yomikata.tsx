@@ -16,7 +16,7 @@ export function Yomikata({ sourceText }: YomikataProps) {
     async function initKuroshiro() {
       if (!isInitialized) {
         try {
-          await kuroshiro.init(new KuromojiAnalyzer({ dictPath: "/dict/" }));
+             await kuroshiro.init(new KuromojiAnalyzer({ dictPath: "/dict/" }));
           isInitialized = true;
         } catch (e) {
           console.error("Failed to initialize kuroshiro:", e);

@@ -25,23 +25,23 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="px-2 py-4 border-b border-gray-400">
+    <nav className="md:px-2 md:py-4 py-2 border-b border-gray-400">
       <div className="flex justify-between w-full mt-4 ml-4">
         <a href="/">
           <img
             src="/yomikata-logo.svg"
-            className="w-26 items-center flex justify-center mb-2 dark:hidden"
+            className="md:w-26 w-16 items-center flex justify-center mb-2 dark:hidden"
             alt="Logo"
           />
 
           <img
             src="/yomikata-logo-white.svg"
-            className="w-26 items-center justify-center mb-2 hidden dark:block"
+            className="md:w-26 w-16 items-center justify-center mb-2 hidden dark:block"
             alt="Logo-dark"
           />
         </a>
 
-        <div className="flex mr-10 gap-20 text-xl font-libertinus mt-1.5 text-black dark:text-white">
+        <div className="flex mr-10 gap-8 md:gap-20 text-sm md:text-xl font-libertinus md:mt-1.5 text-black dark:text-white">
           <NavLink to="/about">About</NavLink>
           <a
             target="_blank"

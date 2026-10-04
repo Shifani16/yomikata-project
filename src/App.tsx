@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <BrowserRouter>
-      <div className="overflow-x-hidden">
+      <div className="bg-white dark:bg-dark-bg overflow-x-hidden">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

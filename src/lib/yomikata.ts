@@ -83,7 +83,8 @@ export async function lookupMeaning(word: string): Promise<string> {
   if (cached) return cached;
 
   try {
-    const res = await fetch(`/jisho?keyword=${encodeURIComponent(word)}`);
+    const res = await fetch(`/api/jisho?keyword=${encodeURIComponent(word)}`);
+    
     if (!res.ok) throw new Error(String(res.status));
     const json = await res.json();
     const results: any[] = json.data ?? [];

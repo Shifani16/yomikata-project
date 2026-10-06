@@ -1,19 +1,36 @@
-import { useState } from "react";
+import { useRef, useState, type CSSProperties } from "react";
+import type { Analysis } from "../lib/yomikata";
 
 interface TextAreaProps {
   sourceText: string;
   setSourceText: (text: string) => void;
+  analysis: Analysis | null;
+  onTranslate: () => void;
 }
 
-export default function TextArea({sourceText, setSourceText}: TextAreaProps) {
+const Shared =
+  "md:text-xl text-sm p-3 w-full h-full rounded [scrollbar-gutter:stable]";
+
+export default function TextArea({
+  sourceText,
+  setSourceText,
+  analysis,
+  onTranslate,
+}: TextAreaProps) {
   // const [sourceText, setSourceText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
   const [targetLang, setTargetLang] = useState("en");
   const [isLoading, setIsLoading] = useState(false);
   const [sourceLang] = useState("ja");
+  const backdropRef = useRef<HTMLDivElement>(null);
+
+  const segments =
+    analysis && analysis.text === sourceText ? analysis.segments : null;
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
+
+    onTranslate();
 
     setIsLoading(true);
 
@@ -50,12 +67,44 @@ export default function TextArea({sourceText, setSourceText}: TextAreaProps) {
                 Original text
               </h1>
             </div>
-            <textarea
-              value={sourceText}
-              placeholder="Type your text here"
-              onChange={(e) => setSourceText(e.target.value)}
-              className="md:text-lg text-sm bg-white text-black dark:text-white dark:bg-dark-light-bg placeholder:text-gray-400 focus:outline-gray-400 h-64 p-3 rounded w-full resize-none"
-            ></textarea>
+
+            <div className="relative h-64">
+              {/* highlight layer (behind) */}
+              <div
+                ref={backdropRef}
+                aria-hidden
+                className={`${Shared} absolute inset-0 z-0 overflow-hidden whitespace-pre-wrap wrap-break-word text-transparent pointer-events-none`}
+              >
+                {segments
+                  ? segments.map((s, i) =>
+                      s.hue === undefined ? (
+                        <span key={i}>{s.text}</span>
+                      ) : (
+                        <mark
+                          key={i}
+                          style={{ "--h": s.hue } as CSSProperties}
+                          className="rounded-sm text-transparent bg-[hsl(var(--h)_70%_82%)] dark:bg-[hsl(var(--h)_45%_30%)]"
+                        >
+                          {s.text}
+                        </mark>
+                      ),
+                    )
+                  : sourceText}
+                {"\u200b"}
+              </div>
+
+              {/* the real textarea (in front) */}
+              <textarea
+                value={sourceText}
+                placeholder="Type your text here"
+                onChange={(e) => setSourceText(e.target.value)}
+                onScroll={(e) => {
+                  if (backdropRef.current)
+                    backdropRef.current.scrollTop = e.currentTarget.scrollTop;
+                }}
+                className={`${Shared} relative z-10 resize-none bg-transparent text-black dark:text-white placeholder:text-gray-400 focus:outline-gray-400`}
+              ></textarea>
+            </div>
           </div>
 
           {/* Second Column (Translated text) */}
@@ -87,7 +136,7 @@ export default function TextArea({sourceText, setSourceText}: TextAreaProps) {
             <textarea
               value={translatedText}
               onChange={(e) => setTranslatedText(e.target.value)}
-              className="md:text-lg text-sm bg-white dark:bg-dark-light-bg text-black dark:text-white placeholder:text-gray-400 focus:outline-gray-400 h-64 p-3 rounded w-full resize-none"
+              className="md:text-xl text-sm bg-white dark:bg-dark-light-bg text-black dark:text-white placeholder:text-gray-400 focus:outline-gray-400 h-64 p-3 rounded w-full resize-none"
             ></textarea>
           </div>
         </div>

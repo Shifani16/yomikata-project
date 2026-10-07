@@ -9,7 +9,7 @@ interface TextAreaProps {
 }
 
 const Shared =
-  "md:text-xl text-sm p-3 w-full h-full rounded [scrollbar-gutter:stable]";
+  "md:text-xl text-md p-3 w-full h-full rounded [scrollbar-gutter:stable]";
 
 export default function TextArea({
   sourceText,
@@ -136,19 +136,19 @@ export default function TextArea({
             <textarea
               value={translatedText}
               onChange={(e) => setTranslatedText(e.target.value)}
-              className="md:text-xl text-sm bg-white dark:bg-dark-light-bg text-black dark:text-white placeholder:text-gray-400 focus:outline-gray-400 h-64 p-3 rounded w-full resize-none"
+              className="md:text-xl text-md bg-white dark:bg-dark-light-bg text-black dark:text-white placeholder:text-gray-400 focus:outline-gray-400 h-64 p-3 rounded w-full resize-none"
             ></textarea>
           </div>
         </div>
       </div>
 
-      <div className="mt-15 flex justify-center font-libertinus font-bold ">
+      <div className="md:mt-15 mt-10 mb-10 flex justify-center font-libertinus font-bold ">
         <button
           onClick={handleTranslate}
           disabled={isLoading}
           className="items-center justify-center hover:cursor-pointer"
         >
-          <div className="bg-black dark:bg-mid-gray shadow-md text-white dark:text-black px-15 py-3 text-lg mt-4 hover:bg-gray-700 transition-colors duration-300">
+          <div className="bg-black dark:bg-mid-gray shadow-md text-white dark:text-black px-15 py-3 text-lg md:mt-4 hover:bg-gray-700 transition-colors duration-300">
             {isLoading ? "Translating..." : "Translate"}
           </div>
         </button>

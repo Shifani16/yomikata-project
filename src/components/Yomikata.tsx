@@ -54,7 +54,7 @@ export function Yomikata({ text, analysis }: YomikataProps) {
   const entries = analysis?.entries ?? [];
 
   return (
-    <section className="md:w-full px-5 md:px-10 md:h-screen text-black dark:text-white">
+    <section className="md:w-full px-5 md:px-10 md:min-h-screen text-black dark:text-white">
       <div className="border-b w-1/2 ">
         <h1 className="text-2xl md:text-5xl font-zhongsong md:mb-5">
           Yomikata

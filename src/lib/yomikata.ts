@@ -1,3 +1,5 @@
+// src/lib/yomikata.ts
+
 import Kuroshiro from "kuroshiro";
 import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji";
 

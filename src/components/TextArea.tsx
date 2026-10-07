@@ -36,7 +36,7 @@ export default function TextArea({
 
     try {
       const response = await fetch(
-        `https://api.mymemory.translated.net/get?q=${sourceText}&langpair=${sourceLang}|${targetLang}`,
+        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(sourceText)}&langpair=${sourceLang}|${targetLang}`
       );
       const data = await response.json();
 

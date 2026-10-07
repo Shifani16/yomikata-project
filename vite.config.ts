@@ -15,13 +15,13 @@ export default defineConfig({
       path: "path-browserify",
     },
   },
-  server: {
-    proxy: {
-      "/jisho": {
-        target: "https://jisho.org",
-        changeOrigin: true,
-        rewrite: (p) => p.replace(/^\/jisho/, "/api/v1/search/words"),
-      }
-    },
-  },
+  // server: {
+  //   proxy: {
+  //     "/jisho": {
+  //       target: "https://jisho.org",
+  //       changeOrigin: true,
+  //       rewrite: (p) => p.replace(/^\/jisho/, "/api/v1/search/words"),
+  //     }
+  //   },
+  // },
 });

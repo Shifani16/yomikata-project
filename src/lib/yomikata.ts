@@ -78,27 +78,29 @@ export async function toFurigana(surface: string): Promise<string> {
   return kuroshiro.convert(surface, { mode: "furigana", to: "hiragana" });
 }
 
-const meaningCache = new Map<string, string>();
+let dictPromise: Promise<Record<string, string>> | null = null;
+
+function loadDict() {
+  if (!dictPromise) {
+    dictPromise = fetch("/jmdict-lite.json")
+      .then((r) => {
+        if (!r.ok) throw new Error(String(r.status));
+        return r.json();
+      })
+      .catch((e) => {
+        dictPromise = null;
+        throw e;
+      });
+  }
+  return dictPromise;
+}
 
 export async function lookupMeaning(word: string): Promise<string> {
-  const cached = meaningCache.get(word);
-  if (cached) return cached;
-
   try {
-    const res = await fetch(`/api/jisho?keyword=${encodeURIComponent(word)}`);
-    
-    if (!res.ok) throw new Error(String(res.status));
-    const json = await res.json();
-    const results: any[] = json.data ?? [];
-    const best =
-      results.find((r) => r.japanese?.some((j: any) => j.word === word)) ??
-      results[0];
-    const defs: string[] = best?.senses?.[0]?.english_definitions ?? [];
-    const meaning = defs.slice(0, 2).join(", ");
-    if (meaning) meaningCache.set(word, meaning);
-    return meaning;
+    const dict = await loadDict();
+    return dict[word] ?? "";
   } catch (e) {
-    console.error("Meaning lookup failed:", e);
+    console.error("Dictionary load failed:", e);
     return "";
   }
 }

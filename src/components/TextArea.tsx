@@ -133,7 +133,7 @@ export default function TextArea({
                 </select>
               </div>
             </div>
-            <textarea
+            <textarea readOnly
               value={translatedText}
               onChange={(e) => setTranslatedText(e.target.value)}
               className="md:text-xl text-md bg-white dark:bg-dark-light-bg text-black dark:text-white placeholder:text-gray-400 focus:outline-gray-400 h-64 p-3 rounded w-full resize-none"
